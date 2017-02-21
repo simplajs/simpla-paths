@@ -1,0 +1,24 @@
+{
+  "name": "simpla-path",
+  "version": "0.1.0",
+  "authors": [
+    "Simpla"
+  ],
+  "description": "Construct paths for Simpla Elements",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "simpla-path"
+  ],
+  "main": "simpla-path.html",
+  "license": "MIT",
+  "homepage": "https://github.com/SimplaElements/simpla-path/",
+  "ignore": [
+    "*",
+    "!*.html",
+    "!LICENSE"
+  ],
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^5.0.0"
+  }
+}

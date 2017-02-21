@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>&lt;simpla-path&gt; Demo</title>
+    <script src="../node_modules/cloudydom/cloudydom.min.js"></script>
+
+    <!-- Import component -->
+    <script src="../simpla-path.js"></script>
+
+    <script>
+      class UidTester extends HTMLElement {
+        connectedCallback() {
+          this.attachShadow({ mode: 'open' });
+          this.shadowRoot.innerHTML = `
+            <style media="screen">
+              :host::before {
+                content: attr(uid);
+                display: block;
+              }
+
+              :host {
+                margin: 1em;
+              }
+            </style>
+            <slot></slot>
+          `;
+        }
+
+        get uid() {
+          return this.getAttribute('uid');
+        }
+
+        set uid(value) {
+          this._nextFrame && cancelAnimationFrame(this._nextFrame);
+          this._nextFrame = requestAnimationFrame(() => {
+            this.setAttribute('uid', value);
+          });
+        }
+      }
+
+      customElements.define('uid-tester', UidTester);
+    </script>
+  </head>
+  <body>
+    <main sid="main">
+      <header sid="header">
+        <uid-tester sid="title">
+          The UID should be <code>main.header.title</code>
+        </uid-tester>
+      </header>
+
+      <div>
+        <div id="shadow-host">
+
+        </div>
+      </div>
+
+      <footer gid="footer">
+        <uid-tester sid="caption">
+          The UID should be <code>footer.caption</code>
+        </uid-tester>
+      </footer>
+    </main>
+
+    <script>
+      let shadowHost = document.getElementById('shadow-host');
+
+      shadowHost.attachShadow({ mode: 'open' });
+
+      SimplaPath.observe(shadowHost.shadowRoot, 'shadow');
+
+      shadowHost.shadowRoot.innerHTML = `
+        <header sid="header">
+          <uid-tester sid="title">
+            The UID should be <code>shadow.header.title</code>  <em>(This is in shadow)</em>
+          </uid-tester>
+        </header>
+      `;
+    </script>
+  </body>
+</html>

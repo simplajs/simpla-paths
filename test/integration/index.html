@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>simpla-path</title>
+    <script src="../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <link rel="import" href="../../bower_components/test-fixture/test-fixture.html">
+
+    <!-- Import the element to test -->
+    <link rel="import" href="../../simpla-path.html">
+
+  </head>
+  <body>
+    <test-fixture id="sid">
+      <template>
+        <div id="root">
+          <div sid="main" expected-uid="main">
+            <div>
+              <header sid="header" expected-uid="main.header">
+                <h1 sid="title" expected-uid="main.header.title"></h1>
+              </header>
+              <div sid="body" expected-uid="main.body">
+                <div sid="content" expected-uid="main.body.content"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="gid">
+      <template>
+        <div id="root">
+          <div sid="main" expected-uid="main">
+            <div gid="footer" expected-uid="footer">
+              <p sid="description" expected-uid="footer.description"></p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="dynamic">
+      <template>
+        <div id="root"></div>
+      </template>
+    </test-fixture>
+    <script src="./index.js"></script>
+  </body>
+</html>

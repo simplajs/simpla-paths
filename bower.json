@@ -15,10 +15,8 @@
   "homepage": "https://github.com/SimplaElements/simpla-path/",
   "ignore": [
     "*",
-    "!*.html",
+    "!simpla-path.html",
+    "!simpla-path.js",
     "!LICENSE"
-  ],
-  "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^5.0.0"
-  }
+  ]
 }

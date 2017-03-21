@@ -1,4 +1,4 @@
-import PathNode from '../../src/path-node';
+import PathNode from '../../src/helpers/path-node';
 
 describe('PathNode', () => {
   let parent,

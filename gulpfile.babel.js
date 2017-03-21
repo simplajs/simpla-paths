@@ -80,7 +80,7 @@ gulp.task('build', () => {
           .pipe(() => gulpif(!argv.debug, uglify(OPTIONS.uglify)))
           .pipe(() => gulpif(argv.debug, sourcemaps.write()));
 
-  return gulp.src('src/*')
+  return gulp.src('src/simpla-paths.*')
     .pipe(errorNotifier())
 
       .pipe(js)

@@ -2,9 +2,7 @@
 node_modules
 bower_components
 
-# Test build files
-.test
-
 # Runtime
 .DS_Store
 *.log
+.test

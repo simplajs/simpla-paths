@@ -7,7 +7,8 @@ const notify = require('gulp-notify');
 const gulpif = require('gulp-if');
 const size = require('gulp-size');
 const plumber = require('gulp-plumber');
-const rename = require('gulp-rename');
+const lazypipe = require('lazypipe');
+const filter = require('gulp-filter');
 const gulprun = require('run-sequence');
 const yargs = require('yargs');
 const browserSync = require('browser-sync');
@@ -24,6 +25,7 @@ const sourcemaps = require('gulp-sourcemaps');
 
 // HTML
 const inline = require('gulp-inline-source');
+const processInline = require('gulp-process-inline');
 
 const wctConfig = require('./wct.conf.js'),
       bs = browserSync.create(),
@@ -64,35 +66,37 @@ const wctConfig = require('./wct.conf.js'),
 
 wct.gulp.init(gulp);
 
-// Build JS
-gulp.task('build:js', () => {
-  return gulp.src('src/simpla-path.js')
+// Build
+gulp.task('build', () => {
+  const js = filter((file) => /\.(js)$/.test(file.path), { restore: true }),
+        html = filter((file) => /\.(html)$/.test(file.path), { restore: true }),
+        scripts = processInline(),
+        processJs = lazypipe()
+          .pipe(() => gulpif(argv.debug, sourcemaps.init()))
+          .pipe(eslint)
+          .pipe(eslint.format)
+          .pipe(() => gulpif(!argv.debug, eslint.failAfterError()))
+          .pipe(rollup, OPTIONS.rollup)
+          .pipe(() => gulpif(!argv.debug, uglify(OPTIONS.uglify)))
+          .pipe(() => gulpif(argv.debug, sourcemaps.write()));
+
+  return gulp.src('src/*')
     .pipe(errorNotifier())
 
-      .pipe(gulpif(argv.debug, sourcemaps.init()))
-      .pipe(eslint())
-      .pipe(eslint.format())
-      .pipe(gulpif(!argv.debug, eslint.failAfterError()))
-      .pipe(rollup(OPTIONS.rollup))
+      .pipe(js)
+        .pipe(processJs())
+      .pipe(js.restore)
 
-      .pipe(gulpif(!argv.debug, uglify(OPTIONS.uglify)))
-      .pipe(gulpif(argv.debug, sourcemaps.write()))
-      .pipe(size({ gzip: true }))
+      .pipe(html)
+        .pipe(inline(OPTIONS.inline))
+        .pipe(scripts.extract('script:not([src])'))
+          .pipe(processJs())
+        .pipe(scripts.restore())
+      .pipe(html.restore)
 
-    .pipe(gulp.dest('.'));
-});
-
-// Build HTML
-gulp.task('build:html', () => {
-  return gulp.src('src/simpla-paths.html')
-    .pipe(errorNotifier())
-      .pipe(inline(OPTIONS.inline))
       .pipe(size({ gzip: true }))
     .pipe(gulp.dest('.'));
 });
-
-// Build all
-gulp.task('build', ['build:js', 'build:html']);
 
 // Build HTML tests
 gulp.task('build:tests:html', () => {
@@ -126,7 +130,7 @@ gulp.task('refresh', () => bs.reload());
 
 // Utility tasks
 gulp.task('demo', () => bs.init(OPTIONS.browserSync));
-gulp.task('test', ['build', 'build:tests', 'test:local']);
+gulp.task('test', gulprun('build', 'build:tests', 'test:local'));
 
 // Default stack
 gulp.task('default', ['build', 'demo', 'watch']);

@@ -130,7 +130,7 @@ gulp.task('refresh', () => bs.reload());
 
 // Utility tasks
 gulp.task('demo', () => bs.init(OPTIONS.browserSync));
-gulp.task('test', gulprun('build', 'build:tests', 'test:local'));
+gulp.task('test', () => gulprun('build', 'build:tests', 'test:local'));
 
 // Default stack
 gulp.task('default', ['build', 'demo', 'watch']);

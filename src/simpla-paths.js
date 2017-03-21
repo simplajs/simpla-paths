@@ -1,8 +1,8 @@
 import CustomAttributeRegistry from 'custom-attributes/registry';
-import { MakeRelativePathAttr, MakeAbsolutePathAttr } from './attr';
-import PathNode from './path-node';
+import { MakeRelativePathAttr, MakeAbsolutePathAttr } from './helpers/attr';
+import PathNode from './helpers/path-node';
 
-window.SimplaPath = {
+window.SimplaPaths = {
   observe(root, rootId = '') {
     const registry = new CustomAttributeRegistry(root),
           rootNode = new PathNode(),
@@ -17,4 +17,4 @@ window.SimplaPath = {
   }
 };
 
-window.SimplaPath.observe(document);
+window.SimplaPaths.observe(document);

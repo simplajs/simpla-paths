@@ -6,7 +6,7 @@ describe('<simpla-path>', () => {
     describe(attr, () => {
       beforeEach(() => {
         root = fixture(attr);
-        window.SimplaPath.observe(root);
+        window.SimplaPaths.observe(root);
         nodes = [].slice.call(root.querySelectorAll(`[${attr}]`));
       });
 
@@ -40,7 +40,7 @@ describe('<simpla-path>', () => {
 
     beforeEach(() => {
       root = fixture('dynamic');
-      window.SimplaPath.observe(root);
+      window.SimplaPaths.observe(root);
     });
 
     describe('adding nodes', () => {

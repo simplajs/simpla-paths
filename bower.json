@@ -1,22 +1,23 @@
 {
-  "name": "simpla-path",
+  "name": "simpla-paths",
   "version": "0.1.0",
+  "description": "Declaratively build content paths for Simpla elements",
   "authors": [
-    "Simpla"
+    "Simpla <friends@simpla.io>"
   ],
   "description": "Construct paths for Simpla Elements",
   "keywords": [
     "web-component",
     "web-components",
-    "simpla-path"
+    "simpla-paths"
   ],
-  "main": "simpla-path.html",
+  "main": "simpla-paths.js",
   "license": "MIT",
-  "homepage": "https://github.com/SimplaElements/simpla-path/",
+  "homepage": "https://github.com/SimplaElements/simpla-paths/",
   "ignore": [
     "*",
-    "!simpla-path.html",
-    "!simpla-path.js",
+    "!simpla-paths.html",
+    "!simpla-paths.js",
     "!LICENSE"
   ]
 }

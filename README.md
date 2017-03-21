@@ -1,4 +1,4 @@
-# simpla-path
+# simpla-paths
 [![Build status][travis-badge]][travis-url] [![Bower dependencies][bowerdeps-badge]][bowerdeps-url] ![Version][bower-badge]
 
 Expose custom `sid` and `gid` attributes for constructing `uid`s on Simpla elements.
@@ -8,19 +8,19 @@ Expose custom `sid` and `gid` attributes for constructing `uid`s on Simpla eleme
 Install simpla-path with Bower
 
 ```sh
-$ bower install simpla-path --save
+$ bower install simpla-paths --save
 ```
 
 Import it into the `<head>` of your page
 
 ```html
-<link rel="import" href="/bower_components/simpla-path/simpla-path.html">
+<link rel="import" href="/bower_components/simpla-path/simpla-paths.html">
 ```
 
 or, given there's no element needed
 
 ```html
-<script src="/bower_components/simpla-path/simpla-path.js"></script>
+<script src="/bower_components/simpla-path/simpla-paths.js"></script>
 ```
 
 Example usage:

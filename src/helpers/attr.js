@@ -2,6 +2,23 @@ import PathNode from './path-node';
 import { isNot } from './utils';
 
 export const MakeRelativePathAttr = (getNode, root) => class extends PathNode {
+  connectedCallback() {
+    this.attachToParent();
+    this.syncValueToPartial();
+    this.syncPathToUid();
+  }
+
+  disconnectedCallback() {
+    this.pluck();
+    this.syncValueToPartial();
+    this.syncPathToUid();
+  }
+
+  changedCallback() {
+    this.syncValueToPartial();
+    this.syncPathToUid();
+  }
+
   addChild(toAdd) {
     let added = super.addChild(toAdd);
 
@@ -12,20 +29,6 @@ export const MakeRelativePathAttr = (getNode, root) => class extends PathNode {
           child.attachToParent();
         });
     }
-  }
-
-  connectedCallback() {
-    this.setPartialToValue();
-    this.attachToParent();
-  }
-
-  disconnectedCallback() {
-    this.setPartialToValue();
-    this.pluck();
-  }
-
-  changedCallback() {
-    this.setPartialToValue();
   }
 
   attachToParent() {
@@ -44,17 +47,13 @@ export const MakeRelativePathAttr = (getNode, root) => class extends PathNode {
     }
   }
 
-  setPartialToValue() {
+  syncValueToPartial() {
     this.partial = this.value;
   }
 
-  set path(value) {
-    super.path = value;
-    this.ownerElement.uid = value;
-  }
-
-  get path() {
-    return super.path;
+  syncPathToUid() {
+    this.ownerElement.uid = this.path;
+    this.children.forEach(child => child.syncPathToUid());
   }
 }
 

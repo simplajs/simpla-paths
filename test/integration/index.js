@@ -87,4 +87,20 @@ describe('<simpla-path>', () => {
       });
     });
   });
+
+  describe('Setting UIDs on pass', () => {
+    let uidTester;
+
+    beforeEach(() => {
+      let root = fixture('uid-resolution');
+      window.SimplaPaths.observe(root);
+      uidTester = root.querySelector('uid-tester');
+    });
+
+    it('should not set UID more than once as UID is built', () => {
+      expect(uidTester.uidHistory).to.deep.equal([
+        uidTester.getAttribute('expected-uid')
+      ]);
+    });
+  });
 });

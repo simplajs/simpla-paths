@@ -1,11 +1,10 @@
 {
   "name": "simpla-paths",
   "version": "0.1.0",
-  "description": "Declaratively build content paths for Simpla elements",
+  "description": "Construct paths for Simpla Elements",
   "authors": [
     "Simpla <friends@simpla.io>"
   ],
-  "description": "Construct paths for Simpla Elements",
   "keywords": [
     "web-component",
     "web-components",
@@ -19,5 +18,8 @@
     "!simpla-paths.html",
     "!simpla-paths.js",
     "!LICENSE"
-  ]
+  ],
+  "devDependencies": {
+    "polymer": "^1.8.1"
+  }
 }

@@ -9,7 +9,29 @@
 
     <!-- Import the element to test -->
     <link rel="import" href="../../simpla-paths.html">
+    <script src="../../../webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="../../../polymer/polymer.html">
+    <script>
+      HTMLImports.whenReady(function() {
+        Polymer({
+          is: 'uid-tester',
 
+          attached() {
+            this.uidHistory = [];
+          },
+
+          set uid(value) {
+            this.uidHistory = this.uidHistory || [];
+            this.uidHistory.push(value);
+          },
+
+          get uid() {
+            this.uidHistory = this.uidHistory || [];
+            return this.uidHistory.slice(-1).pop();
+          }
+        })
+      });
+    </script>
   </head>
   <body>
     <test-fixture id="sid">
@@ -44,6 +66,18 @@
     <test-fixture id="dynamic">
       <template>
         <div id="root"></div>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="uid-resolution">
+      <template>
+        <div id="root">
+          <div sid="main">
+            <div sid="body">
+              <uid-tester sid="leaf" expected-uid="main.body.leaf"></uid-tester>
+            </div>
+          </div>
+        </div>
       </template>
     </test-fixture>
     <script src="./index.js"></script>

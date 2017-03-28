@@ -1,4 +1,5 @@
 import { isNot } from './utils';
+import { PATH_GLUE } from './constants';
 
 export default class PathNode {
   constructor() {
@@ -33,7 +34,7 @@ export default class PathNode {
       path.push(this.partial);
     }
 
-    this.path = path.join('.');
+    this.path = path.join(PATH_GLUE);
   }
 
   set path(value) {

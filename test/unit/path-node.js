@@ -46,13 +46,13 @@ describe('PathNode', () => {
 
     it(`should be concatenation of parent's path and node partial`, () => {
       child.partial = 'baz';
-      parent.path = 'foo.bar';
+      parent.path = 'foo/bar';
 
-      expect(child.path).to.equal('foo.bar.baz');
+      expect(child.path).to.equal('foo/bar/baz');
     });
 
     it(`should be the parent's path if it has no partial`, () => {
-      parent.path = 'foo.bar';
+      parent.path = 'foo/bar';
       expect(child.path).to.equal(parent.path);
     });
 
@@ -62,7 +62,7 @@ describe('PathNode', () => {
     });
 
     it(`should be just its own partial if parent is null`, () => {
-      parent.path = 'foo.bar';
+      parent.path = 'foo/bar';
       child.partial = 'baz';
       child.parent = null;
       expect(child.path).to.equal(child.partial);

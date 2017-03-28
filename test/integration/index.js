@@ -10,15 +10,15 @@ describe('<simpla-path>', () => {
         nodes = [].slice.call(root.querySelectorAll(`[${attr}]`));
       });
 
-      it(`should give all nodes with an ${attr} attribute a 'uid' value`, () => {
+      it(`should give all nodes with an ${attr} attribute a 'path' value`, () => {
         nodes.forEach((node) => {
-          expect(node.uid).to.exist;
+          expect(node.path).to.exist;
         });
       });
 
-      it('should give each node the correct uid value', () => {
+      it('should give each node the correct path value', () => {
         nodes.forEach((node) => {
-          expect(node.uid).to.equal(node.getAttribute('expected-uid'));
+          expect(node.path).to.equal(node.getAttribute('expected-path'));
         });
       });
     });
@@ -44,43 +44,43 @@ describe('<simpla-path>', () => {
     });
 
     describe('adding nodes', () => {
-      it('should add the right uid to the added node(s)', (done) => {
+      it('should add the right path to the added node(s)', (done) => {
         let [ fruit, apples, fuji ] = stamp();
 
         async.nextTick(() => {
-          expect(fruit.uid).to.equal('fruit');
-          expect(apples.uid).to.equal('fruit.apples');
-          expect(fuji.uid).to.equal('fruit.apples.fuji');
+          expect(fruit.path).to.equal('/fruit');
+          expect(apples.path).to.equal('/fruit/apples');
+          expect(fuji.path).to.equal('/fruit/apples/fuji');
           done();
         });
       });
     });
 
     describe('changing attribute values', () => {
-      it('should change uids when changing sids', (done) => {
+      it('should change paths when changing sids', (done) => {
         let [, apples, fuji ] = stamp();
 
         apples.setAttribute('sid', 'pears');
 
         async.nextTick(() => {
-          expect(fuji.uid).to.equal('fruit.pears.fuji')
+          expect(fuji.path).to.equal('/fruit/pears/fuji')
           done();
         });
       });
     });
 
     describe('removing / adding attributes', () => {
-      it('should update uid paths correctly on remove / adding', (done) => {
+      it('should update path paths correctly on remove / adding', (done) => {
         let [, apples, fuji ] = stamp();
 
         apples.removeAttribute('sid');
 
         async.nextTick(() => {
-          expect(fuji.uid).to.equal('fruit.fuji');
+          expect(fuji.path).to.equal('/fruit/fuji');
           apples.setAttribute('sid', 'apples');
 
           async.nextTick(() => {
-            expect(fuji.uid).to.equal('fruit.apples.fuji');
+            expect(fuji.path).to.equal('/fruit/apples/fuji');
             done();
           });
         });
@@ -88,18 +88,18 @@ describe('<simpla-path>', () => {
     });
   });
 
-  describe('Setting UIDs on pass', () => {
-    let uidTester;
+  describe('Setting paths on pass', () => {
+    let pathTester;
 
     beforeEach(() => {
-      let root = fixture('uid-resolution');
+      let root = fixture('path-resolution');
       window.SimplaPaths.observe(root);
-      uidTester = root.querySelector('uid-tester');
+      pathTester = root.querySelector('path-tester');
     });
 
-    it('should not set UID more than once as UID is built', () => {
-      expect(uidTester.uidHistory).to.deep.equal([
-        uidTester.getAttribute('expected-uid')
+    it('should not set path more than once as path is built', () => {
+      expect(pathTester.pathHistory).to.deep.equal([
+        pathTester.getAttribute('expected-path')
       ]);
     });
   });

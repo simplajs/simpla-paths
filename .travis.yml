@@ -6,6 +6,7 @@ node_js:
 before_script:
 - npm install -g bower web-component-tester
 - bower install
+- gulp build:tests
 script: xvfb-run wct
 addons:
   firefox: latest

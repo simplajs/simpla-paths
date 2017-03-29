@@ -6,9 +6,12 @@
     "Simpla <friends@simpla.io>"
   ],
   "keywords": [
-    "web-component",
     "web-components",
-    "simpla-paths"
+    "custom attributes",
+    "simpla",
+    "paths",
+    "content management",
+    "cms"
   ],
   "main": "simpla-paths.js",
   "license": "MIT",

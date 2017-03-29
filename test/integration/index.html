@@ -9,25 +9,25 @@
 
     <!-- Import the element to test -->
     <link rel="import" href="../../simpla-paths.html">
-    <script src="../../../webcomponentsjs/webcomponents.min.js"></script>
+    <script src="../../../webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="../../../polymer/polymer.html">
     <script>
       HTMLImports.whenReady(function() {
         Polymer({
-          is: 'uid-tester',
+          is: 'path-tester',
 
           attached() {
-            this.uidHistory = [];
+            this.pathHistory = [];
           },
 
-          set uid(value) {
-            this.uidHistory = this.uidHistory || [];
-            this.uidHistory.push(value);
+          set path(value) {
+            this.pathHistory = this.pathHistory || [];
+            this.pathHistory.push(value);
           },
 
-          get uid() {
-            this.uidHistory = this.uidHistory || [];
-            return this.uidHistory.slice(-1).pop();
+          get path() {
+            this.pathHistory = this.pathHistory || [];
+            return this.pathHistory.slice(-1).pop();
           }
         })
       });
@@ -37,13 +37,13 @@
     <test-fixture id="sid">
       <template>
         <div id="root">
-          <div sid="main" expected-uid="main">
+          <div sid="main" expected-path="/main">
             <div>
-              <header sid="header" expected-uid="main.header">
-                <h1 sid="title" expected-uid="main.header.title"></h1>
+              <header sid="header" expected-path="/main/header">
+                <h1 sid="title" expected-path="/main/header/title"></h1>
               </header>
-              <div sid="body" expected-uid="main.body">
-                <div sid="content" expected-uid="main.body.content"></div>
+              <div sid="body" expected-path="/main/body">
+                <div sid="content" expected-path="/main/body/content"></div>
               </div>
             </div>
           </div>
@@ -54,9 +54,9 @@
     <test-fixture id="gid">
       <template>
         <div id="root">
-          <div sid="main" expected-uid="main">
-            <div gid="footer" expected-uid="footer">
-              <p sid="description" expected-uid="footer.description"></p>
+          <div sid="main" expected-path="/main">
+            <div gid="footer" expected-path="/footer">
+              <p sid="description" expected-path="/footer/description"></p>
             </div>
           </div>
         </div>
@@ -69,12 +69,12 @@
       </template>
     </test-fixture>
 
-    <test-fixture id="uid-resolution">
+    <test-fixture id="path-resolution">
       <template>
         <div id="root">
           <div sid="main">
             <div sid="body">
-              <uid-tester sid="leaf" expected-uid="main.body.leaf"></uid-tester>
+              <path-tester sid="leaf" expected-path="/main/body/leaf"></path-tester>
             </div>
           </div>
         </div>

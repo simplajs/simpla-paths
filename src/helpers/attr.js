@@ -1,22 +1,23 @@
 import PathNode from './path-node';
 import { isNot } from './utils';
+import { PATH_PROP, ROOT_PATH, PATH_GLUE } from './constants';
 
 export const MakeRelativePathAttr = (getNode, root) => class extends PathNode {
   connectedCallback() {
     this.attachToParent();
     this.syncValueToPartial();
-    this.syncPathToUid();
+    this.syncPathToOwnerElement();
   }
 
   disconnectedCallback() {
     this.pluck();
     this.syncValueToPartial();
-    this.syncPathToUid();
+    this.syncPathToOwnerElement();
   }
 
   changedCallback() {
     this.syncValueToPartial();
-    this.syncPathToUid();
+    this.syncPathToOwnerElement();
   }
 
   addChild(toAdd) {
@@ -51,9 +52,9 @@ export const MakeRelativePathAttr = (getNode, root) => class extends PathNode {
     this.partial = this.value;
   }
 
-  syncPathToUid() {
-    this.ownerElement.uid = this.path;
-    this.children.forEach(child => child.syncPathToUid());
+  syncPathToOwnerElement() {
+    this.ownerElement[PATH_PROP] = ROOT_PATH + this.path;
+    this.children.forEach(child => child.syncPathToOwnerElement());
   }
 }
 

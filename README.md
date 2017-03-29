@@ -1,11 +1,11 @@
 # simpla-paths
 [![Build status][travis-badge]][travis-url] [![Bower dependencies][bowerdeps-badge]][bowerdeps-url] ![Version][bower-badge]
 
-Expose custom `sid` and `gid` attributes for constructing `uid`s on Simpla elements.
+Expose custom `sid` and `gid` attributes for constructing paths on Simpla elements.
 
 ### Installation & usage
 
-Install simpla-path with Bower
+Install simpla-paths with Bower
 
 ```sh
 $ bower install simpla-paths --save
@@ -29,12 +29,12 @@ Example usage:
 <body>
   <main sid="main">
     <header sid="header">
-      <!-- Will have a `uid` of 'main.header.title' -->
+      <!-- Will have a `path` of '/main/header/title' -->
       <h1><simpla-text sid="title"></simpla-text></h1>
     </header>
 
     <footer gid="footer">
-      <!-- Will have a `uid` of 'footer.caption' -->
+      <!-- Will have a `path` of '/footer/caption' -->
       <span><simpla-text sid="caption"></simpla-text></span>
     </footer>
   </main>
@@ -46,7 +46,7 @@ Example usage:
 The custom `sid` and `gid` attributes are only registered on the main document, and not on Shadow Trees. Therefore if you're wanting to use them inside a Shadow Root, you'll need to observe them manually e.g.
 
 ```js
-let basePath = element.uid;
+let basePath = element.path;
 SimplaPath.observe(element.shadowRoot, basePath);
 ```
 

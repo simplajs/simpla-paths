@@ -23,6 +23,6 @@
     "!LICENSE"
   ],
   "devDependencies": {
-    "polymer": "^1.8.1"
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5"
   }
 }

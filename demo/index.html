@@ -3,81 +3,97 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>&lt;simpla-path&gt; Demo</title>
-    <script src="../node_modules/cloudydom/cloudydom.min.js"></script>
+    <title>simpla-paths Demo</title>
+
+    <!-- Setup demo page -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js"></script>
+    <script>
+      window.Polymer = { dom: 'shadow' };
+    </script>
+    <link rel="import" href="../iron-demo-helpers/demo-snippet.html">
 
     <!-- Import component -->
-    <script src="../simpla-paths.js"></script>
+    <script src="../simpla-paths.min.js"></script>
 
-    <script>
-      class UidTester extends HTMLElement {
-        connectedCallback() {
-          this.attachShadow({ mode: 'open' });
-          this.shadowRoot.innerHTML = `
-            <style media="screen">
-              :host::before {
-                content: attr(uid);
-                display: block;
-              }
-
-              :host {
-                margin: 1em;
-              }
-            </style>
-            <slot></slot>
-          `;
-        }
-
-        get uid() {
-          return this.getAttribute('uid');
-        }
-
-        set uid(value) {
-          this._nextFrame && cancelAnimationFrame(this._nextFrame);
-          this._nextFrame = requestAnimationFrame(() => {
-            this.setAttribute('uid', value);
-          });
-        }
+    <!-- Demo styles -->
+    <style>
+      /**
+       * Page styles
+       */
+      body {
+        font-family: sans-serif;
+        color: #303c46
       }
 
-      customElements.define('uid-tester', UidTester);
-    </script>
+      .demo {
+        width: 90%;
+        max-width: 38rem;
+        margin: 4rem auto;
+      }
+
+      .demo__title {
+        font-size: 1.4rem;
+        font-weight: 400;
+      }
+    </style>
   </head>
+
   <body>
-    <main sid="main">
-      <header sid="header">
-        <uid-tester sid="title">
-          The UID should be <code>main.header.title</code>
-        </uid-tester>
-      </header>
 
-      <div>
-        <div id="shadow-host">
+    <div class="demo">
+      <h1 class="demo__title">Basic demo</h1>
+      <demo-snippet class="demo__snippet">
+        <template>
+          <div sid="basic"></div>
 
-        </div>
-      </div>
+          <script>
+            var element = document.querySelector('[sid="basic"]');
 
-      <footer gid="footer">
-        <uid-tester sid="caption">
-          The UID should be <code>footer.caption</code>
-        </uid-tester>
-      </footer>
-    </main>
+            element.addEventListener('path-changed', function() {
+              this.innerHTML = 'Path is ' + this.path;
+            });
+          </script>
+        </template>
+      </demo-snippet>
+    </div>
 
-    <script>
-      let shadowHost = document.getElementById('shadow-host');
+    <div class="demo">
+      <h1 class="demo__title">Nested SIDs</h1>
+      <demo-snippet class="demo__snippet">
+        <template>
+          <div sid="parent">
+            <div sid="child"></div>
+          </div>
 
-      shadowHost.attachShadow({ mode: 'open' });
+          <script>
+            var element = document.querySelector('[sid="child"]');
 
-      SimplaPaths.observe(shadowHost.shadowRoot, 'shadow');
+            element.addEventListener('path-changed', function() {
+              this.innerHTML = 'Path is ' + this.path;
+            });
+          </script>
+        </template>
+      </demo-snippet>
+    </div>
 
-      shadowHost.shadowRoot.innerHTML = `
-        <header sid="header">
-          <uid-tester sid="title">
-            The UID should be <code>shadow.header.title</code>  <em>(This is in shadow)</em>
-          </uid-tester>
-        </header>
-      `;
-    </script>
+    <div class="demo">
+      <h1 class="demo__title">GIDs</h1>
+      <demo-snippet class="demo__snippet">
+        <template>
+          <div sid="parent">
+            <div gid="child"></div>
+          </div>
+
+          <script>
+            var element = document.querySelector('[gid="child"]');
+
+            element.addEventListener('path-changed', function() {
+              this.innerHTML = 'Path is ' + this.path;
+            });
+          </script>
+        </template>
+      </demo-snippet>
+    </div>
+
   </body>
 </html>

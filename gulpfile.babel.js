@@ -86,7 +86,7 @@ gulp.task('build', () => {
 
       .pipe(js)
         .pipe(processJs())
-        .pipe(rename(path => path.extname = ".min.js"))
+        .pipe(rename(path => path.extname = '.min.js'))
       .pipe(js.restore)
 
       .pipe(html)
@@ -129,6 +129,6 @@ gulp.task('watch', [ 'watch:src', 'watch:tests' ]);
 gulp.task('serve', () => bs.init(OPTIONS.browserSync));
 gulp.task('refresh', () => bs.reload());
 
-gulp.task('test', gulprun('build', 'build:tests', 'test:local'));
+gulp.task('test', () => gulprun('build', 'build:tests', 'test:local'));
 
 gulp.task('default', ['build', 'serve', 'watch']);

@@ -62,14 +62,14 @@ Scoped IDs are namespaced to their parent, and are the main building block of co
 
 ### Global IDs
 
-Global IDs are not namespaced to their parent, and create new root paths wherever they are used. They are equivelant to specifying `path="/[gid]"` on a Simpla element, but applicable to any arbitrary HTML element. This means you can easily create global 'chunks' of content.
+Global IDs are not namespaced to their parent, and create new root paths wherever they are used. They are equivalent to specifying `path="/[gid]"` on a Simpla element, but are applicable to any arbitrary HTML element. This means you can easily create global 'chunks' of content.
 
 ```html
 <div sid="page">
-  
+
   <!-- Content path = /page/title -->
   <simpla-text sid="title"></simpla-text>
-  
+
   <div gid="footer">
     <!-- Content path = /footer/company -->
     <simpla-text sid="company"></simpla-text>  
@@ -79,23 +79,23 @@ Global IDs are not namespaced to their parent, and create new root paths whereve
 
 ```
 
-> Read more about structruing Simpla data in the [structuring data guide](https://www.simpla.io/docs/structuring-data).
+> Read more about structuring Simpla data in the [structuring data guide](https://www.simpla.io/docs/structuring-data).
 
 ## Dynamically reloading paths
 
-When you change any ID in a chain of IDs, the whole path is reconstructed. This means you to easily fetch and reload whole sections content dynamically by changing a single ID.
+When you change any ID in a chain of IDs, the whole path is reconstructed. This means you can easily fetch and reload whole sections of content dynamically by changing a single ID.
 
 ```html
 <div id="page" sid="page">
   <div sid="section">
-    <simpla-text sid="title"></simpla-text> 
+    <simpla-text sid="title"></simpla-text>
   </div>
 </div>
 
 <!-- simpla-text path = /page/section/title -->
 
 <script>
-  document.querySelector('#page').sid = 'about';
+  document.querySelector('#page').setAttribute('sid', 'about');
 </script>
 
 <!-- simpla-text path = /about/section/title -->
@@ -110,7 +110,7 @@ For example, fetch localized content for a page based on browser language
 
 <script>
   // Set localization namespace to browser language
-  document.querySelector('#localize') = navigator.languge;
+  document.querySelector('#localize').setAttribute('sid', navigator.languge);
 </script>
 ```
 
@@ -138,11 +138,11 @@ Attribute | Description
 
 Event          | Detail             | Description                              
 -------------- | ------------------ | ------------
-`path-changed` | `{ path: String }` | Fired whenever an element's path changes 
+`path-changed` | `{ path: String }` | Fired whenever an element's path changes
 
 ## Contributing
 
-If you find any issues with simpla-img please report them! If you'd like to see a new feature in supported file an issue or let us know in Simpla's public [Slack group](https://slack.simpla.io). We also happily accept PRs. 
+If you find any issues with simpla-paths please report them! If you'd like to see a new feature in supported file an issue or let us know in Simpla's public [Slack group](https://slack.simpla.io). We also happily accept PRs.
 
 ---
 

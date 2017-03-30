@@ -136,6 +136,8 @@ Attribute | Description
 
 ### Events
 
+Events will only be fired on elements that have either an `sid` or `gid` attribute.
+
 Event          | Detail             | Description                              
 -------------- | ------------------ | ------------
 `path-changed` | `{ path: String }` | Fired whenever an element's path changes

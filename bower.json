@@ -18,8 +18,9 @@
   "homepage": "https://github.com/SimplaElements/simpla-paths/",
   "ignore": [
     "*",
+    "!src",
     "!simpla-paths.html",
-    "!simpla-paths.js",
+    "!simpla-paths.min.js",
     "!LICENSE"
   ],
   "devDependencies": {

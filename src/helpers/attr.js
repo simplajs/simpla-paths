@@ -53,7 +53,11 @@ export const MakeRelativePathAttr = (getNode, root) => class extends PathNode {
   }
 
   syncPathToOwnerElement() {
-    this.ownerElement[PATH_PROP] = ROOT_PATH + this.path;
+    let path = ROOT_PATH + this.path,
+        pathChangedEvent = new CustomEvent('path-changed', { detail: { value: path } });
+
+    this.ownerElement[PATH_PROP] = path;
+    this.ownerElement.dispatchEvent(pathChangedEvent)
     this.children.forEach(child => child.syncPathToOwnerElement());
   }
 }

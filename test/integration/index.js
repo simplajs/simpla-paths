@@ -86,6 +86,22 @@ describe('<simpla-path>', () => {
         });
       });
     });
+
+    describe('path-changed event', () => {
+      it('should fire a path-changed event with the path as value', (done) => {
+        let [ fruit, apples ] = stamp(),
+            spy = sinon.spy();
+
+        apples.addEventListener('path-changed', spy);
+        fruit.setAttribute('sid', 'vegetables');
+
+        async.nextTick(() => {
+          expect(spy.called, 'Fired event').to.be.true;
+          expect(spy.lastCall.args[0].detail.value, 'Event path as detail.value').to.equal('/vegetables/apples');
+          done();
+        });
+      });
+    });
   });
 
   describe('Setting paths on pass', () => {

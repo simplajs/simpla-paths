@@ -2,7 +2,7 @@
 [![Build status][travis-badge]][travis-url] ![Version][bower-badge] ![Size][size-badge] <br>
 [![Simpla slack group][slack-badge]][slack-url]
 
-Simpla-paths lets you declaratively build and manage content paths for Simpla elements with HTML attributes.
+Simpla-paths maps Simpla content paths to the DOM, using HTML attributes. This allows you to easily structure data declaratively in code.
 
 ### Installation & usage
 
@@ -17,7 +17,7 @@ $ bower install simpla-paths --save
 ```
 
 ```
-https://unpkg.com/simpla-paths@^0.1.0/[file]
+https://unpkg.com/simpla-paths@^1.0.0/[file]
 ```
 
 Simpla-paths is distributed as both an HTML import (`simpla-paths.html`) and a JavaScript file (`simpla-paths.min.js`). You can include either in your project, but make sure you only include one of them.
@@ -36,7 +36,19 @@ Once simpla-paths is included it will begin observing IDs and constructing paths
 
 ## Constructing paths
 
-Simpla-paths exposes two new HTML attributes you can use to declaratively construct content paths:
+Simpla-paths creates paths by stringing together IDs used in new HTML attributes. For example, this markup
+
+```html
+<div sid="page">
+  <div sid="section">
+    <simpla-text sid="element"></simpla-text>
+  </div>
+</div>
+```
+
+Creates the path `/page/section/element` for the `<simpla-text>`` element.
+
+Simpla-paths exposes two new HTML attributes:
 
 - `sid`: Scoped ID
 - `gid`: Global ID
@@ -45,45 +57,47 @@ Every element with either of these attributes will get a `path` property set on 
 
 ### Scoped IDs
 
-Scoped IDs are namespaced to their parent, and are the main building block of complex paths. To create nested paths, just nest elements with `sid` attributes.
+Scoped IDs (the `sid` attribute) are the building blocks of structured content. They are namespaced to any parent element with a path ID. To created nested paths, just nest HTML elements with `sid` attributes
 
 ```html
-<div sid="page">
-  <div sid="section">
-
-    <!-- Content path = /page/section/title -->
-    <simpla-text sid="title"></simpla-text>
-
-  </div>
+<div sid="nested">
+  <span sid="path"></span>
 </div>
-```
 
-> Read more about structruing data in the [structuring data guide](https://www.simpla.io/docs/structuring-data).
+<p sid="path"></p>
+
+<script>
+  document.querySelector('div').path // '/nested'
+  document.querySelector('span').path // '/nested/path'
+  document.querySelector('p').path // '/path'
+</script>
+```
 
 ### Global IDs
 
-Global IDs are not namespaced to their parent, and create new root paths wherever they are used. They are equivalent to specifying `path="/[gid]"` on a Simpla element, but can be used on any HTML element. This means you can easily create global 'chunks' of content.
+Global IDs (the `gid` attribute) always create new paths regardless of where they are used. When applied to Simpla elements, they are equivelant to specifying `path="/[gid]"`. 
+
+They are useful for creating reusable chunks of content that always have consistent data, regardless of where they appear on your site.
 
 ```html
 <div sid="page">
 
-  <!-- Content path = /page/title -->
+  <!-- path = /page/title -->
   <simpla-text sid="title"></simpla-text>
 
   <div gid="footer">
-    <!-- Content path = /footer/company -->
+
+    <!-- path = /footer/company -->
     <simpla-text sid="company"></simpla-text>  
+
   </div>
 
 </div>
-
 ```
-
-> Read more about structuring data in the [structuring data guide](https://www.simpla.io/docs/structuring-data).
 
 ## Dynamically reloading paths
 
-When you change any ID in a chain of IDs, the whole path is reconstructed. This means you can easily fetch and reload whole sections of content dynamically by changing a single attribute.
+When you change any ID in a chain of IDs, the whole path is recalculated. This means you can easily fetch and reload whole sections of content dynamically by changing a single attribute.
 
 ```html
 <div id="page" sid="page">
@@ -101,25 +115,13 @@ When you change any ID in a chain of IDs, the whole path is reconstructed. This 
 <!-- simpla-text path = /about/section/title -->
 ```
 
-For example, fetch localized content for a page based on browser language
-
-```html
-<div id="localize" sid="en">
-  <simpla-text sid="content"></simpla-text>
-</div>
-
-<script>
-  // Set localization namespace to browser language
-  document.querySelector('#localize').setAttribute('sid', navigator.languge);
-</script>
-```
-
+> Read more about [structuring data with simpla-paths](https://www.simpla.io/docs/guides/structuring-data)
 
 ## Observing shadow roots
 
 Simpla-paths automatically observes IDs and constructs paths in the main document. To use `sid` and `gid` attributes in Shadow DOM you will need to tell simpla-paths to observe your shadow root manually.
 
-Do this with the `observe` method on the `SimplaPaths` global. It takes two arguments, the shadow tree to observe, and an optional base path (defaults to `/`).
+Do this with the `observe` method on the `SimplaPaths` global. It takes two arguments, the shadow tree to observe, and an optional base path (defaults to `'/'`).
 
 ```js
 SimplaPaths.observe(element.shadowRoot, element.path);
@@ -131,7 +133,7 @@ SimplaPaths.observe(element.shadowRoot, element.path);
 
 Attribute | Description
 --------- | -----------
-`sid`     | Scoped ID, appended to its parent to create nested paths
+`sid`     | Scoped ID, appended to parent IDs to create nested paths
 `gid`     | Global ID, creates a new root path
 
 ### Events

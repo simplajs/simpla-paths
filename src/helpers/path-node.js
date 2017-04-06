@@ -6,14 +6,21 @@ export default class PathNode {
     this.children = [];
   }
 
-  addChild(toAdd) {
-    if (toAdd.parent !== this) {
-      this.children = [ ...this.children, toAdd ];
-      toAdd.parent = this;
-      return true;
+  addChild(newChild) {
+    let previousChildren;
+
+    if (newChild.parent === this) {
+      return;
     }
 
-    return false;
+    previousChildren = this.children;
+
+    this.children = [ ...previousChildren, newChild ];
+    newChild.parent = this;
+
+    // If adopting a child, the previous children may no longer be children
+    //  therefore give them the opportunity to find their parent
+    previousChildren.forEach(child => child.findAndAttachToParent());
   }
 
   removeChild(toRemove) {
@@ -73,4 +80,12 @@ export default class PathNode {
 
     children.forEach(parent.addChild, parent);
   }
+
+  /**
+   * Attach child to parent. Child should automatically search for, and attach to
+   *  it's appropriate parent.
+   * @abstract
+   * @return {undefined}
+   */
+  findAndAttachToParent() {}
 }

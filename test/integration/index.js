@@ -26,9 +26,11 @@ describe('<simpla-path>', () => {
 
   describe('dynamic updates', () => {
     const template = `
-      <div sid="fruit">
-        <div sid="apples">
-          <div sid="fuji"></div>
+      <div class="expecting">
+        <div sid="fruit">
+          <div sid="apples">
+            <div sid="fuji"></div>
+          </div>
         </div>
       </div>
     `;
@@ -100,6 +102,20 @@ describe('<simpla-path>', () => {
           expect(spy.lastCall.args[0].detail.value, 'Event path as detail.value').to.equal('/vegetables/apples');
           done();
         });
+      });
+    });
+
+    describe('adding a new top most sid', () => {
+      it('should become new parent to all children with sids / gids', () => {
+        let [ fruit, apples ] = stamp(),
+            expecting = root.querySelector('.expecting');
+
+        return Promise.resolve()
+          .then(() => expecting.setAttribute('sid', 'plants'))
+          .then(() => {
+            expect(fruit.path).to.equal('/plants/fruit');
+            expect(apples.path).to.equal('/plants/fruit/apples');
+          });
       });
     });
   });

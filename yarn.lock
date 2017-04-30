@@ -1480,9 +1480,9 @@ ctype@0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/ctype/-/ctype-0.5.3.tgz#82c18c2461f74114ef16c135224ad0b9144ca12f"
 
-custom-attributes@^1.1.2:
+"custom-attributes@git+https://github.com/matthewp/custom-attributes#support-ie":
   version "1.1.2"
-  resolved "https://registry.yarnpkg.com/custom-attributes/-/custom-attributes-1.1.2.tgz#0d1bb95f931f473ba531df2e5c6132ebc935deb9"
+  resolved "git+https://github.com/matthewp/custom-attributes#cc1a88a3e80af14ea2759ddfde7de2b1a268084f"
 
 d@^0.1.1, d@~0.1.1:
   version "0.1.1"

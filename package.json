@@ -1,6 +1,6 @@
 {
   "name": "simpla-paths",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Declaratively build content paths for Simpla elements",
   "main": "simpla-paths.js",
   "scripts": {

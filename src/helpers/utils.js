@@ -12,3 +12,15 @@ export const normalizePathPiece = (piece) => {
   return piece
     .replace(NORMALIZING_REGEXP, '$1');
 }
+
+export const findNodeInRegistry = registry => attributes => element => {
+  for (let i = 0, k = attributes.length; i < k; i++) {
+    let instance = registry.get(element, attributes[i]);
+
+    if (instance) {
+      return instance;
+    }
+  }
+
+  return null;
+}

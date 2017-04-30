@@ -106,16 +106,18 @@ describe('<simpla-path>', () => {
     });
 
     describe('adding a new top most sid', () => {
-      it('should become new parent to all children with sids / gids', () => {
+      it('should become new parent to all children with sids / gids', (done) => {
         let [ fruit, apples ] = stamp(),
             expecting = root.querySelector('.expecting');
 
-        return Promise.resolve()
-          .then(() => expecting.setAttribute('sid', 'plants'))
-          .then(() => {
+        async.nextTick(() => {
+          expecting.setAttribute('sid', 'plants');
+          async.nextTick(() => {
             expect(fruit.path).to.equal('/plants/fruit');
             expect(apples.path).to.equal('/plants/fruit/apples');
+            done();
           });
+        });
       });
     });
   });

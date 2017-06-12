@@ -1,25 +1,25 @@
 # Simpla Paths
-[![NPM][npm-badge]][npm-url] [![Build status][travis-badge]][travis-url] ![Size][size-badge] [![Simpla slack group][slack-badge]][slack-url]
+[![Build status][travis-badge]][travis-url] ![Size][size-badge] [![NPM][npm-badge]][npm-url] [![Simpla slack group][slack-badge]][slack-url]
 
-Simpla-paths maps Simpla content paths to the DOM, using HTML attributes. This allows you to easily structure data declaratively in code.
+Simpla-paths maps [Simpla][simpla] content paths to the DOM with new HTML attributes. This allows you to structure your content declaratively in code.
 
 ### Installation & usage
 
 Simpla-paths is available on NPM/Yarn, Bower, and the Unpkg CDN
 
 ```sh
-$ npm install simpla-paths --save
+$ npm i simpla-paths --save
 ```
 
 ```sh
-$ bower install simpla-paths --save
+$ bower i simpla-paths --save
 ```
 
 ```
-https://unpkg.com/simpla-paths@^1.0.0/[file]
+https://unpkg.com/simpla-paths@^1.0.0
 ```
 
-Simpla-paths is distributed as both an HTML import (`simpla-paths.html`) and a JavaScript file (`simpla-paths.min.js`). You can include either in your project, but make sure you only include one of them.
+[Setup Simpla][setup-simpla] on your page, then include simpla-paths in your `<head>`. Simpla-paths is distributed as both an HTML import (`simpla-paths.html`) and a JavaScript file (`simpla-paths.min.js`). You can include either, but make sure you only include one of them.
 
 ```html
 <!-- As HTML import -->
@@ -31,11 +31,11 @@ Simpla-paths is distributed as both an HTML import (`simpla-paths.html`) and a J
 <script src="/node_modules/simpla-paths/simpla-paths.min.js"></script>
 ```
 
-Once simpla-paths is included it will begin observing IDs and constructing paths automatically (except for inside Shadow DOM - see [Observing shadow roots](#observing-shadow-roots)).
+Simpla-paths will automatically begin observing its attributes and constructing paths (except inside Shadow DOM - see [observing shadow roots](#observing-shadow-roots)).
 
 ## Constructing paths
 
-Simpla-paths creates paths by stringing together IDs used in new HTML attributes. For example, this markup
+Simpla-paths creates paths for elements by stringing together IDs used in new HTML attributes. For example, this markup
 
 ```html
 <div sid="page">
@@ -56,20 +56,16 @@ Every element with either of these attributes will get a `path` property set on 
 
 ### Scoped IDs
 
-Scoped IDs (the `sid` attribute) are the building blocks of structured content. They are namespaced to any parent element with a path ID. To created nested paths, just nest HTML elements with `sid` attributes
+Scoped IDs (the `sid` attribute) are the building blocks of structured content. They are namespaced to any parent element with a path ID attribute. To created nested paths, just nest HTML elements with `sid` attributes
 
 ```html
 <div sid="nested">
-  <span sid="path"></span>
+  <!-- path = /nested/path -->
+  <simpla-text sid="path"></simpla-text>
 </div>
 
-<p sid="path"></p>
-
-<script>
-  document.querySelector('div').path // '/nested'
-  document.querySelector('span').path // '/nested/path'
-  document.querySelector('p').path // '/path'
-</script>
+<!-- path = /path -->
+<simpla-text sid="path"></simpla-text>
 ```
 
 ### Global IDs
@@ -96,7 +92,7 @@ They are useful for creating reusable chunks of content that always have consist
 
 ## Dynamically reloading paths
 
-When you change any ID in a chain of IDs, the whole path is recalculated. This means you can easily fetch and reload whole sections of content dynamically by changing a single attribute.
+Changing any ID in a chain of IDs recalculates the entire path. This means you can easily make your content react to changes in DOM.
 
 ```html
 <div id="page" sid="page">
@@ -120,10 +116,10 @@ When you change any ID in a chain of IDs, the whole path is recalculated. This m
 
 Simpla-paths automatically observes IDs and constructs paths in the main document. To use `sid` and `gid` attributes in Shadow DOM you will need to tell simpla-paths to observe your shadow root manually.
 
-Do this with the `observe` method on the `SimplaPaths` global. It takes two arguments, the shadow tree to observe, and an optional base path (defaults to `'/'`).
+Do this with the `observe()` method on the `SimplaPaths` global. It takes two arguments, the shadow tree to observe, and an optional base path (defaults to `'/'`).
 
 ```js
-SimplaPaths.observe(element.shadowRoot, element.path);
+SimplaPaths.observe(el.shadowRoot, el.path);
 ```
 
 ## API
@@ -149,8 +145,10 @@ If you find any issues with simpla-paths please report them! If you'd like to se
 
 ***
 
-MIT © Simpla
+MIT © [Simpla][simpla]
 
+[simpla]: https://www.simpla.io
+[setup-simpla]: https://www.simpla.io/docs/guides/get-started
 [npm-badge]: https://img.shields.io/npm/v/simpla-paths.svg
 [npm-url]: https://www.npmjs.com/package/simpla-paths
 [travis-badge]: https://img.shields.io/travis/SimplaElements/simpla-paths.svg

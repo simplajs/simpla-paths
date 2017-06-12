@@ -36,7 +36,8 @@
     "space-infix-ops": 2,
 
     "strict": [2, "never"],
-    "indent": [2, 2, {"VariableDeclarator": { "var": 2, "let": 2, "const": 3 }}],
+    "indent": "off",
+    "indent-legacy": [2, 2, {"VariableDeclarator": { "var": 2, "let": 2, "const": 3 }}],
     "quotes": [2, "single", { "allowTemplateLiterals": true }],
     "one-var": [2, {
       "let": "always"

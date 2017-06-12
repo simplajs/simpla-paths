@@ -1,13 +1,13 @@
 {
   "name": "simpla-paths",
   "version": "1.0.2",
-  "description": "Construct paths for Simpla Elements",
+  "description": "Structure Simpla content in code with new HTML attributes",
   "authors": [
     "Simpla <friends@simpla.io>"
   ],
   "keywords": [
     "web-components",
-    "custom attributes",
+    "custom-attributes",
     "simpla",
     "paths",
     "content management",
@@ -24,6 +24,7 @@
     "!LICENSE"
   ],
   "devDependencies": {
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5"
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5",
+    "web-component-tester": "^6.0.0"
   }
 }

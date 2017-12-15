@@ -141,7 +141,7 @@ Event          | Detail             | Description
 
 ## Contributing
 
-If you find any issues with simpla-paths please report them! If you'd like to see a new feature in supported file an issue or let us know in Simpla's public [Slack group](https://slack.simpla.io). We also happily accept PRs.
+If you find any issues with simpla-paths please report them! If you'd like to see a new feature in supported file an issue. We also happily accept PRs.
 
 ***
 
@@ -154,5 +154,3 @@ MIT © [Simpla][simpla]
 [travis-badge]: https://img.shields.io/travis/simplaio/simpla-paths.svg
 [travis-url]: https://travis-ci.org/simplaio/simpla-paths
 [size-badge]: https://badges.herokuapp.com/size/github/simplaio/simpla-paths/master/simpla-paths.min.js?gzip=true
-[slack-badge]: http://slack.simpla.io/badge.svg
-[slack-url]: https://slack.simpla.io

@@ -1,5 +1,5 @@
 # Simpla Paths
-[![Build status][travis-badge]][travis-url] ![Size][size-badge] [![NPM][npm-badge]][npm-url] [![Simpla slack group][slack-badge]][slack-url]
+[![Build status][travis-badge]][travis-url] ![Size][size-badge] [![NPM][npm-badge]][npm-url]
 
 Simpla-paths maps [Simpla][simpla] content paths to the DOM with new HTML attributes. This allows you to structure your content declaratively in code.
 
@@ -148,11 +148,11 @@ If you find any issues with simpla-paths please report them! If you'd like to se
 MIT © [Simpla][simpla]
 
 [simpla]: https://www.simpla.io
-[setup-simpla]: https://www.simpla.io/docs/guides/get-started
+[setup-simpla]: https://docs.simpla.io/guides/get-started.html
 [npm-badge]: https://img.shields.io/npm/v/simpla-paths.svg
 [npm-url]: https://www.npmjs.com/package/simpla-paths
-[travis-badge]: https://img.shields.io/travis/SimplaElements/simpla-paths.svg
-[travis-url]: https://travis-ci.org/SimplaElements/simpla-paths
-[size-badge]: https://badges.herokuapp.com/size/github/SimplaElements/simpla-paths/master/simpla-paths.min.js?gzip=true
+[travis-badge]: https://img.shields.io/travis/simplaio/simpla-paths.svg
+[travis-url]: https://travis-ci.org/simplaio/simpla-paths
+[size-badge]: https://badges.herokuapp.com/size/github/simplaio/simpla-paths/master/simpla-paths.min.js?gzip=true
 [slack-badge]: http://slack.simpla.io/badge.svg
 [slack-url]: https://slack.simpla.io
